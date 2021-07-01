@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Header, AirbnbRating, Icon } from "react-native-elements"; 
 import { RFValue } from "react-native-responsive-fontsize"; 
 import axios from "axios";
+import {WebView} from 'react-native-webview';
 
 export default class HomeScreen extends React.Component {
     constructor(){
@@ -45,6 +46,11 @@ export default class HomeScreen extends React.Component {
         })
     }
 
+    readArticle=()=>{
+        const {url} = this.state.article_details.data.url;
+        return <WebView source={{uri: url}}/>
+    }
+
     componentDidMount(){
         this.getArticles()
     }
@@ -77,6 +83,7 @@ export default class HomeScreen extends React.Component {
               />
 
                 <View style={styles.upperBottomContainer}>
+                    <Text>I guess you can read these if you want</Text>
                   <Text style={styles.title}>{title}</Text>
                   <Text style={styles.subtitle}>{`Language:  ${lang}`}</Text>
                 </View>
@@ -104,6 +111,7 @@ export default class HomeScreen extends React.Component {
                         size={RFValue(30)}
                         color={"#4DDFEF"}
                       />
+                      <Text>LIKE</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={this.dislikeArticle}>
@@ -114,6 +122,18 @@ export default class HomeScreen extends React.Component {
                         size={RFValue(30)}
                         color={"#4DDFEF"}
                       />
+                      <Text>DISLIKE</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={this.readArticle}>
+                      <Icon
+                        reverse
+                        name={"book-reader"}
+                        type={"fontawesome5"}
+                        size={RFValue(30)}
+                        color={"#4DDFEF"}
+                      />
+                      <Text>READ</Text>
                     </TouchableOpacity>
 
                 </View>
